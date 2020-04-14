@@ -1,0 +1,31 @@
+{
+    "request": {
+		"message": {
+			"created": "Successfully created",
+			"updated": "Successfully updated",
+			"deleted": "Successfully deleted"
+		}
+	},
+    "boom": {
+        "message": {
+            "badRequest": "Bad request",
+            "unauthorized": "Unauthorized",
+            "forbidden": "Forbidden",
+            "notFound": "Not found",
+            "badImplementation": "Internal server error",
+            "notImplemented": "Not implemented",
+            "serverUnavailable": "Server unavailable"
+        }
+    },
+    "user": {
+        "validation": {
+            "message": {
+                "name": "Enter the name!",
+                "lastName": "Enter the last name!",
+                "email": "Enter a email valid!",
+                "password": "Enter the password!",
+                "passwordConfirmation": "Password confirmation is different of password!"
+            }
+        }
+    }
+}

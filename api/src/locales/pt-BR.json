@@ -1,0 +1,32 @@
+{
+	"request": {
+		"message": {
+			"created": "Criado com sucesso",
+			"updated": "Atualizado com sucesso",
+			"deleted": "Deletado com sucesso"
+		}
+	},
+    "boom": {
+        "message": {
+            "badRequest": "Pedido inválido",
+            "unauthorized": "Não autorizado",
+            "forbidden": "Sem permissão",
+            "notFound": "Não encontrado",
+            "badImplementation": "Erro interno do servidor",
+            "notImplemented": "Não implementado",
+            "serverUnavailable": "Serviço indisponível"
+        }
+    },
+	"user": {
+		"validation": {
+			"message": {
+				"name": "Informe o nome!",
+				"lastName": "Informe o sobrenome!",
+				"email": "Informe um email válido!",
+				"password": "Informe a senha!",
+				"passwordConfirmation": "Confirmação de senha é diferente de senha!",
+				"isDifferentPassword": "user.validation.message.isDifferentPassword"
+			}
+		}
+	}
+}
