@@ -6,17 +6,17 @@
 			"deleted": "Deletado com sucesso"
 		}
 	},
-    "boom": {
-        "message": {
-            "badRequest": "Pedido inválido",
-            "unauthorized": "Não autorizado",
-            "forbidden": "Sem permissão",
-            "notFound": "Não encontrado",
-            "badImplementation": "Erro interno do servidor",
-            "notImplemented": "Não implementado",
-            "serverUnavailable": "Serviço indisponível"
-        }
-    },
+	"boom": {
+		"message": {
+			"badRequest": "Pedido inválido",
+			"unauthorized": "Não autorizado",
+			"forbidden": "Sem permissão",
+			"notFound": "Não encontrado",
+			"badImplementation": "Erro interno do servidor",
+			"notImplemented": "Não implementado",
+			"serverUnavailable": "Serviço indisponível"
+		}
+	},
 	"user": {
 		"validation": {
 			"message": {
@@ -25,7 +25,9 @@
 				"email": "Informe um email válido!",
 				"password": "Informe a senha!",
 				"passwordConfirmation": "Confirmação de senha é diferente de senha!",
-				"isDifferentPassword": "user.validation.message.isDifferentPassword"
+				"isDifferentPassword": "user.validation.message.isDifferentPassword",
+				"price": "user.validation.message.price",
+				"quantity": "user.validation.message.quantity"
 			}
 		}
 	}

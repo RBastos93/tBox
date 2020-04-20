@@ -47,7 +47,7 @@ const updateUser = async (req, res) => {
         passwordConfirmation
     };
 
-    const user = await User.findOneAndUpdate({ _id: userId }, update);
+    const user = await User.updateOne({ _id: userId }, update);
 
     if (!user) return res.boom.badImplementation(req.__('boom.message.badImplementation'));
 
@@ -57,7 +57,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     const { userId } = req.params;
 
-    const user = await User.findOneAndUpdate({ _id: userId }, { active: false });
+    const user = await User.updateOne({ _id: userId }, { active: false });
 
     if (!user) return res.boom.badImplementation(req.__('boom.message.badImplementation'));
 

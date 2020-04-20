@@ -7,6 +7,7 @@ const express = require('express');
 const boom = require('express-boom');
 const i18n = require('i18n');
 const cors = require('cors');
+const { authenticateToken } = require('./auth/jwt');
 const app = express();
 
 i18n.configure({
@@ -23,6 +24,16 @@ app.use(boom());
 app.use(cors());
 
 app.use(express.json());
+
+app.use((req, res, next) => {
+    const { url } = req;
+
+    if (url.indexOf('auth') <= -1) {
+        return authenticateToken(req, res, next);
+    }
+
+    return next();
+});
 
 app.use(routes);
 

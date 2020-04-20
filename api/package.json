@@ -19,7 +19,9 @@
     "express-jwt": "^5.3.3",
     "express-validator": "^6.4.0",
     "i18n": "^0.8.6",
-    "mongoose": "^5.9.7"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.7",
+    "mongoose-bcrypt": "^1.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

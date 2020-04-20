@@ -1,7 +1,7 @@
 'use strict';
 
 const isTrue = value => {
-    if (value === true || value === 'true') {
+    if (value === true || value === 'true' || !value) {
         return true;
     }
 

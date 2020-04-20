@@ -108,7 +108,10 @@ module.exports = {
         ],
         'indent': 'off',
         'indent-legacy': 'error',
-        'init-declarations': 'error',
+        'init-declarations': [
+            'error',
+            'never'
+        ],
         'jsx-quotes': 'error',
         'key-spacing': 'error',
         'keyword-spacing': [
