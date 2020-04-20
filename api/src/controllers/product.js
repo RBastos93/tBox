@@ -8,7 +8,7 @@ const { SKIP, LIMIT } = require('../constants/mongoDB');
 const validations = [
     param('language').exists().trim().escape().isLength({ min: 2 }),
     body('name').exists().trim().escape()
-        .bail().isLength({ min: 4 }),
+        .bail().isLength({ min: 3 }),
     body('price').isFloat({ min: 0.01 })
         .bail().isLength({ min: 1 }),
     body('quantity').isInt({ min: 1 })
