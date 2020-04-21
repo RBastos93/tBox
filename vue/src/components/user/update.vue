@@ -1,16 +1,16 @@
 <template>
-  <div class="createUser">
+  <div class="updateUser">
     <b-card-group column>
       <b-card>
         <template v-slot:header>
           <b-row>
             <b-col sm="12" class="align-items-end">
-              <h6 class="mb-0">Registrar usuário</h6>
+              <h6 class="mb-0">Atualizar perfil</h6>
             </b-col>
           </b-row>
         </template>
         <b-card-body>
-          <b-form @submit="createUser">
+          <b-form @submit="updateUser">
             <b-row>
               <b-col sm="12">
                 <b-form-group
@@ -65,7 +65,24 @@
             <b-row>
               <b-col sm="12">
                 <b-form-group
-                  label="Senha"
+                  label="Senha atual"
+                  label-for="currentPassword"
+                >
+                  <b-form-input
+                    id="currentPassword"
+                    v-model="currentPassword"
+                    type="password"
+                    required
+                  >
+                  </b-form-input>
+                  <b-form-invalid-feedback id="email-feedback"></b-form-invalid-feedback>
+                </b-form-group>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col sm="12">
+                <b-form-group
+                  label="Nova senha"
                   label-for="password"
                 >
                   <b-form-input
@@ -104,7 +121,7 @@
                 <b-button
                   block
                   variant="danger"
-                  v-on:click="() => this.$router.push({ path: '/login' })"
+                  v-on:click="() => this.$router.push({ path: '/home' })"
                 >
                   Voltar
                 </b-button>
@@ -121,35 +138,56 @@
 import invalid from '../../services/invalidFeedback';
 
 export default {
-  name: 'CreateUser',
+  name: 'UpdateUser',
   data() {
     return {
       name: null,
       lastName: null,
       email: null,
+      currentPassword: null,
       password: null,
       passwordConfirmation: null,
+      userId: null,
     };
   },
+  mounted() {
+    this.getUser();
+  },
   methods: {
-    createUser(event) {
+    updateUser(event) {
       const payload = {
         name: this.name,
         lastName: this.lastName,
         email: this.email,
+        currentPassword: this.currentPassword,
         password: this.password,
         passwordConfirmation: this.passwordConfirmation,
       };
 
-      this.api.post('/user', payload)
+      this.api.put(`/user/${this.userId}`, payload)
         .then(() => {
-          this.$router.push({ path: '/login' });
+          this.$router.push({ path: '/home' });
         })
         .catch((error) => {
           invalid(error.response.data);
         });
 
       event.preventDefault();
+    },
+    getUser() {
+      this.userId = this.$route.params.userId;
+
+      this.api.get(`/user/${this.userId}`)
+        .then((response) => {
+          const { name, lastName, email } = response.data.data;
+
+          this.name = name;
+          this.lastName = lastName;
+          this.email = email;
+        })
+        .catch((error) => {
+          invalid(error.response.data);
+        });
     },
   },
 };

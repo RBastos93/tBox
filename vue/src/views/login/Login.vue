@@ -7,30 +7,40 @@
             <h1>Seja bem-vindo</h1>
           </div>
           <div class="card-body">
-            <div class="form-group">
-              <div class="row">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  class="form-control"
-                  placeholder="E-mail"
-                  v-model="email"
-                  required
+            <b-row>
+              <b-col sm="12">
+                <b-form-group
+                  label="Email"
+                  label-for="email"
                 >
-              </div>
-              <div class="row">
-                <label for="password">Senha</label>
-                <input
-                  type="password"
-                  id="password"
-                  class="form-control"
-                  placeholder="Senha"
-                  v-model="password"
-                  required
+                  <b-form-input
+                    id="email"
+                    v-model="email"
+                    type="email"
+                    required
+                  >
+                  </b-form-input>
+                  <b-form-invalid-feedback id="email-feedback"></b-form-invalid-feedback>
+                </b-form-group>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col sm="12">
+                <b-form-group
+                  label="Senha"
+                  label-for="password"
                 >
-              </div>
-            </div>
+                  <b-form-input
+                    id="password"
+                    v-model="password"
+                    type="password"
+                    required
+                  >
+                  </b-form-input>
+                  <b-form-invalid-feedback id="password-feedback"></b-form-invalid-feedback>
+                </b-form-group>
+              </b-col>
+            </b-row>
             <button class="btn btn-gradient">Continuar</button>
           </div>
           <div class="card-footer">
@@ -46,6 +56,8 @@
 </template>
 
 <script>
+import invalid from '../../services/invalidFeedback';
+
 export default {
   name: 'Login',
   data() {
@@ -61,9 +73,12 @@ export default {
         password: this.password,
       }).then((response) => {
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('id', response.data.id);
+        localStorage.setItem('name', response.data.name);
+
         this.$router.push({ path: 'home' });
       }).catch((error) => {
-        console.log(error.response);
+        invalid(error.response.data);
       });
 
       event.preventDefault();
@@ -77,13 +92,75 @@ export default {
   height: 100%;
 }
 
+.container {
+  margin: auto;
+  max-width: 500px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  padding: 30px;
+}
+
+p {
+  font-size: 22px;
+  line-height: 30px;
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  font-size: 14px;
+  color: #444;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+form label span {
+  font-weight: normal;
+  color: #999;
+  font-size: 12px;
+}
+
+form input {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  height: 45px;
+  padding: 0 15px;
+  font-size: 16px;
+}
+
+.btn {
+  border: none;
+  border-radius: 2px;
+  width: 100%;
+  height: 40px;
+  justify-content: center;
+  padding: 10px;
+  font-size: 16px;
+  background: #f05a5b;
+  font-weight: bold;
+  color: #FFF;
+  cursor: pointer;
+}
+
 .card * {
   box-sizing: border-box;
   font-family: sans-serif;
   display: flex;
-  width: auto;
-  height: auto;
-  /* flex-flow: column nowrap; */
+  position: relative;
 }
 
 .card {
@@ -98,23 +175,21 @@ export default {
 }
 
 .card-header {
-  padding: 15px;
-  margin-top: 20px;
-  margin-bottom: 20px;
   flex-flow: column nowrap;
   align-items: center;
+  background: none;
+  border-bottom: none;
 }
 
 .card-body {
   flex-flow: column nowrap;
-  margin-top: 30px;
-  margin-bottom: 20px;
 }
 
 .card-footer {
-  margin-top: 30px;
   justify-content: center;
   flex-direction: row;
+  background: none;
+  border-top: none;
 }
 
 .card-footer span {

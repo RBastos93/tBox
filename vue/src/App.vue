@@ -4,6 +4,26 @@
   </div>
 </template>
 
+<script>
+import { VMoney } from 'v-money';
+
+export default {
+  data() {
+    return {
+      money: {
+        decimal: ',',
+        thousands: '.',
+        precision: 2,
+        masked: false,
+      },
+    };
+  },
+  directives: {
+    money: VMoney,
+  },
+};
+</script>
+
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
 
@@ -25,7 +45,7 @@ body, input, button {
   font-size: 14px;
 }
 
-.container {
+/* .container {
   margin: auto;
   max-width: 400px;
   width: 100%;
@@ -73,9 +93,9 @@ form input {
   height: 45px;
   padding: 0 15px;
   font-size: 16px;
-}
+} */
 
-.btn {
+/* .btn {
   border: none;
   border-radius: 2px;
   width: 100%;
@@ -87,5 +107,5 @@ form input {
   font-weight: bold;
   color: #FFF;
   cursor: pointer;
-}
+} */
 </style>

@@ -6,6 +6,21 @@ const debounce = (func, delay) => {
   debounceTimer = setTimeout(func, delay);
 };
 
-export default {
+const maskMoney = {
+  decimal: ',',
+  thousands: '.',
+  precision: 2,
+  masked: false,
+};
+
+const removeChars = (value, replaceChars, regex) => {
+  const v = value.replace(regex, (val) => replaceChars[val]);
+
+  return v;
+};
+
+export {
   debounce,
+  maskMoney,
+  removeChars,
 };

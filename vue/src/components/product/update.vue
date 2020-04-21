@@ -1,16 +1,16 @@
 <template>
-  <div class="createProduct">
+  <div class="updateProduct">
     <b-card-group column>
       <b-card>
         <template v-slot:header>
           <b-row>
             <b-col sm="12" class="align-items-end">
-              <h6 class="mb-0">Registrar produto</h6>
+              <h6 class="mb-0">Atualizar produto</h6>
             </b-col>
           </b-row>
         </template>
         <b-card-body>
-          <b-form @submit="createProduct">
+          <b-form @submit="updateProduct">
             <b-row>
               <b-col sm="12">
                 <b-form-group
@@ -21,6 +21,7 @@
                     id="name"
                     v-model="name"
                     type="text"
+                    trim
                     required
                   >
                   </b-form-input>
@@ -69,7 +70,7 @@
             </b-row>
             <b-row>
               <b-col sm="4">
-                <b-button type="submit" block variant="primary">Criar</b-button>
+                <b-button type="submit" block variant="primary">Confirmar</b-button>
               </b-col>
               <b-col sm="4">
                 <b-button
@@ -93,17 +94,21 @@ import { maskMoney, removeChars } from '../../helpers/helpers';
 import invalid from '../../services/invalidFeedback';
 
 export default {
-  name: 'CreateProduct',
+  name: 'UpdateProduct',
   data() {
     return {
       name: null,
       price: null,
       quantity: null,
+      productId: null,
       money: maskMoney,
     };
   },
+  mounted() {
+    this.getProduct();
+  },
   methods: {
-    createProduct(event) {
+    updateProduct(event) {
       const regex = /\.|,/g;
       const replaceChars = {
         ',': '.',
@@ -116,7 +121,7 @@ export default {
         quantity: this.quantity,
       };
 
-      this.api.post('/product', payload)
+      this.api.put(`/product/${this.productId}`, payload)
         .then(() => {
           this.$router.push({ path: '/product' });
         })
@@ -125,6 +130,21 @@ export default {
         });
 
       event.preventDefault();
+    },
+    getProduct() {
+      this.productId = this.$route.params.productId;
+
+      this.api.get(`/product/${this.productId}`)
+        .then((response) => {
+          const { name, quantity, price } = response.data.data;
+
+          this.name = name;
+          this.price = price;
+          this.quantity = quantity;
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
     },
   },
 };

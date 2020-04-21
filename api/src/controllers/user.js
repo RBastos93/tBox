@@ -36,8 +36,10 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    const { name, lastName, email, password, passwordConfirmation } = req.body;
+    const { name, lastName, email, currentPassword, password, passwordConfirmation } = req.body;
     const { userId } = req.params;
+
+    const data = await User.findById(userId);
     
     const update = {
         name,
@@ -47,6 +49,8 @@ const updateUser = async (req, res) => {
         passwordConfirmation
     };
 
+    if (data.password !== currentPassword) return res.boom.badImplementation(req.__('boom.message.badImplementation'))
+    
     const user = await User.updateOne({ _id: userId }, update);
 
     if (!user) return res.boom.badImplementation(req.__('boom.message.badImplementation'));
@@ -100,7 +104,7 @@ const findOneUser = async (req, res) => {
     const { userId } = req.params;
 
     const data = await User.findById(userId);
-
+    
     res.send({ data }).status(200);
 };
 

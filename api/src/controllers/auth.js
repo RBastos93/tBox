@@ -21,12 +21,16 @@ const authenticateUser = async (req, res) => {
         return res.boom.badImplementation(req.__('boom.message.badImplementation'));
     }
 
-    const token = await generateAccessToken({ userId: user._id }); 
+    const token = await generateAccessToken({ userId: user._id });
 
-    return res.send({ token });
+    return res.send({
+        token,
+        id: user._id,
+        name: user.name,
+    });
 };
 
 module.exports = {
     validations,
-    authenticateUser
+    authenticateUser,
 }

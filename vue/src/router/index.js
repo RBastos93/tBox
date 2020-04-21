@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Login from '../views/login/Login.vue';
+import User from '../views/user/User.vue';
 import guard from '../services/navigationGuards';
 
 Vue.use(VueRouter);
@@ -9,7 +10,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    alias: '/home',
+    redirect: '/product',
     name: 'Home',
     component: Home,
     beforeEnter: guard,
@@ -24,15 +25,13 @@ const routes = [
       },
       {
         path: 'product/:productId/edit',
-        component: () => import('../components/product/edit.vue'),
+        component: () => import('../components/product/update.vue'),
+      },
+      {
+        path: 'user/:userId/edit',
+        component: () => import('../components/user/update.vue'),
       },
     ],
-  },
-  {
-    path: '/about',
-    name: 'About',
-    beforeEnter: guard,
-    component: () => import('../views/About.vue'),
   },
   {
     path: '/login',
@@ -40,9 +39,15 @@ const routes = [
     component: Login,
   },
   {
-    path: '/user/new',
+    path: '/user',
     name: 'User',
-    component: () => import('../components/user/create.vue'),
+    component: User,
+    children: [
+      {
+        path: 'new',
+        component: () => import('../components/user/create.vue'),
+      },
+    ],
   },
 ];
 

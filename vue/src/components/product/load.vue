@@ -1,65 +1,111 @@
 <template>
   <div class="product">
-    <div>
-      <input
-        type="text"
-        id="product"
-        class="form-control"
-        placeholder="Produto"
-        v-on:keyup="search"
-        v-model="product"
-      >
-      <h1>{{ product }}</h1>
-    </div>
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Preço</th>
-            <th>Quantidade</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in data" v-bind:key="item._id">
-            <td>{{ item.name }}</td>
-            <td>{{ item.price }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>
-              <router-link :to="`product/${item._id}/edit`" class="link">editar</router-link>
-            </td>
-            <td><button v-on:click="deleteProduct(item._id)">Deletar</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <b-card-group>
+      <b-card>
+        <template v-slot:header>
+          <b-row>
+            <b-col sm="12" class="align-items-end">
+              <h6 class="mb-0">Lista de produtos</h6>
+            </b-col>
+          </b-row>
+        </template>
+        <b-card-body>
+          <b-row>
+            <b-col sm="6">
+              <b-form-group
+                label-for="search"
+              >
+                <b-input-group>
+                  <b-form-input
+                    v-model="filter"
+                    type="text"
+                    id="search"
+                    v-on:keyup="search"
+                    placeholder="Procure pelo nome.."
+                  >
+                  </b-form-input>
+                  <b-input-group-append>
+                    <b-button :disabled="!filter" v-on:click="clear">Limpar</b-button>
+                  </b-input-group-append>
+                </b-input-group>
+              </b-form-group>
+            </b-col>
+            <b-col offset-sm="4" sm="2">
+              <b-button variant="primary" to="/product/new">
+                <b-icon icon="plus" class="align-end"></b-icon>
+              </b-button>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col sm="12">
+              <b-table-simple hover>
+                <b-thead>
+                  <b-tr>
+                    <b-th>Nome</b-th>
+                    <b-th>Preço</b-th>
+                    <b-th>Quantidade</b-th>
+                    <b-th colspan="2">Ações</b-th>
+                  </b-tr>
+                </b-thead>
+                <b-tbody>
+                  <b-tr v-for="item in items" v-bind:key="item._id">
+                    <b-td>{{ item.name }}</b-td>
+                    <b-td>{{ item.price }}</b-td>
+                    <b-td>{{ item.quantity }}</b-td>
+                    <b-td>
+                      <b-button
+                        variant="warning"
+                        :to="`/product/${item._id}/edit`"
+                      >
+                        <b-icon icon="pencil"></b-icon>
+                      </b-button>
+                    </b-td>
+                    <b-td>
+                      <b-button variant="danger" v-on:click="deleteProduct(item._id)">
+                        <b-icon icon="trash"></b-icon>
+                      </b-button>
+                    </b-td>
+                  </b-tr>
+                </b-tbody>
+              </b-table-simple>
+            </b-col>
+          </b-row>
+        </b-card-body>
+      </b-card>
+    </b-card-group>
   </div>
 </template>
 
 <script>
-import helpers from '../../helpers/helpers';
+import { debounce } from '../../helpers/helpers';
 
 export default {
   name: 'Product',
   data() {
     return {
-      product: null,
-      data: [],
+      filter: '',
+      fields: ['Nome', 'Preço', 'Quantidade'],
+      items: [],
     };
   },
+  mounted() {
+    this.loadProducts();
+  },
   methods: {
-    search() {
-      const { debounce } = helpers;
+    clear() {
+      this.filter = '';
 
+      this.loadProducts();
+    },
+    search() {
       debounce(this.loadProducts, 500);
     },
     loadProducts() {
-      this.api.get(`/product?q=${this.product}`)
+      this.api.get(`/product?q=${this.filter}`)
         .then((response) => {
           const { data } = response.data;
 
-          this.data = [...data];
+          this.items = [...data];
         })
         .catch((error) => {
           console.log(error.response);
@@ -67,8 +113,7 @@ export default {
     },
     deleteProduct(id) {
       this.api.delete(`/product/${id}`)
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           this.loadProducts();
         })
         .catch((error) => {
