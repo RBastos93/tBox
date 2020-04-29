@@ -2,10 +2,15 @@
 
 const { validationResult } = require('express-validator');
 
-const errorFormatter = (req, { param }) => {
+const errorFormatter = (req, { param, msg } ) => {
+    let message = msg;
+
+    if (msg === 'Invalid value')
+        message = req.__(`user.validation.message.${param}.default`);
+    
     return ({
-        param: param,
-        message: req.__(`user.validation.message.${param}`)
+        param,
+        message
     });
 };
 
@@ -17,7 +22,8 @@ const validRequest = validations => {
         
         await req.setLocale(req.params.language);
 
-        if (errors.isEmpty()) return next();
+        if (errors.isEmpty())
+            return next();
         
         return res.boom.badRequest(
             req.__('boom.message.badRequest'),

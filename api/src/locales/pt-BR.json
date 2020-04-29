@@ -20,14 +20,27 @@
 	"user": {
 		"validation": {
 			"message": {
-				"name": "Informe o nome!",
-				"lastName": "Informe o sobrenome!",
-				"email": "Informe um email válido!",
-				"password": "Informe a senha!",
-				"passwordConfirmation": "Confirmação de senha é diferente de senha!",
-				"isDifferentPassword": "user.validation.message.isDifferentPassword",
-				"price": "user.validation.message.price",
-				"quantity": "user.validation.message.quantity"
+				"name": {
+					"default": "Informe o nome!",
+					"minimumCharacters": "Nome deve ter no minímo 4 letras!"
+				},
+				"lastName": {
+					"default": "Informe o sobrenome",
+					"minimumCharacters": "Sobrenome deve ter no minímo 4 letras!"
+				},
+				"email": {
+					"default": "Informe um email válido!",
+					"alreadyRegistered": "Email já registrado!"
+				},
+				"password": {
+					"default": "Informe a senha!",
+					"minimumCharacters": "Senha deve ter no minímo 6 caracteres!"
+				},
+				"confirmPassword": {
+					"default": "Informe cofirmar senha!",
+					"minimumCharacters": "Confirmar senha deve ter no minímo 6 caracteres!",
+					"passwordsDoNotMatch": "As senhas não coincidem!"
+				}
 			}
 		}
 	}

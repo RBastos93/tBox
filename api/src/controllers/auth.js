@@ -17,16 +17,27 @@ const authenticateUser = async (req, res) => {
 
     if (!user) return res.boom.notFound(req.__('boom.message.notFound'));
 
-    if (user.password !== password) {
+    if (!user.verifyPasswordSync(password)) {
         return res.boom.badImplementation(req.__('boom.message.badImplementation'));
     }
 
-    const token = await generateAccessToken({ userId: user._id });
+    user.authentications.push({
+        strategy: 'jwt',
+        agent: req.headers['user-agent'],
+        ip: req.connection.remoteAddress
+    });
+    
+    const tokenOptions = {
+        jwtid: user.authentications.last()._id.toString(),
+        expiresIn: '15d',
+    };
 
+    const token = await generateAccessToken({ user: user.toJSON }, tokenOptions);
+    
+    await user.save();
+    
     return res.send({
-        token,
-        id: user._id,
-        name: user.name,
+        token
     });
 };
 

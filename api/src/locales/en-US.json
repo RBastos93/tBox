@@ -20,12 +20,28 @@
     "user": {
         "validation": {
             "message": {
-                "name": "Enter the name!",
-                "lastName": "Enter the last name!",
-                "email": "Enter a email valid!",
-                "password": "Enter the password!",
-                "passwordConfirmation": "Password confirmation is different of password!"
-            }
+				"name": {
+					"default": "Enter the name!",
+					"minimumCharacters": "Name must be at least 4 letters!"
+				},
+				"lastName": {
+					"default": "Enter the last name!",
+					"minimumCharacters": "Last name must be at least 4 letters!"
+				},
+				"email": {
+					"default": "Enter the email valid!",
+					"alreadyRegistered": "Email already registered!"
+				},
+				"password": {
+					"default": "Enter the password!",
+					"minimumCharacters": "Password must be at least 6 characters!"
+				},
+				"confirmPassword": {
+					"default": "Enter the confirm password!",
+					"minimumCharacters": "Confirm password must be at least 6 characters!",
+					"passwordsDoNotMatch": "Passwords do not match!"
+				}
+			}
         }
     }
 }

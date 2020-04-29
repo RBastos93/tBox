@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { validRequest } = require('../helpers/validator');
+const { validRequest } = require('../plugins/express-validator');
 const { validations, createProduct, updateProduct, deleteProduct, findAllProduct, findOneProduct } = require('../controllers/product');
 
 router.route('/:language/product')

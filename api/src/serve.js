@@ -27,7 +27,7 @@ app.use(express.json());
 
 app.use((req, res, next) => {
     const { url } = req;
-    const regex = /.*user\/new/giu;
+    const regex = /.*user/giu;
 
     if (url.indexOf('auth') <= -1 && url.search(regex) <= -1) {
         return authenticateToken(req, res, next);
