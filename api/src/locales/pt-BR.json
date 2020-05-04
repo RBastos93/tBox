@@ -1,0 +1,47 @@
+{
+	"request": {
+		"message": {
+			"created": "Criado com sucesso",
+			"updated": "Atualizado com sucesso",
+			"deleted": "Deletado com sucesso"
+		}
+	},
+	"boom": {
+		"message": {
+			"badRequest": "Pedido inválido",
+			"unauthorized": "Não autorizado",
+			"forbidden": "Sem permissão",
+			"notFound": "Não encontrado",
+			"badImplementation": "Erro interno do servidor",
+			"notImplemented": "Não implementado",
+			"serverUnavailable": "Serviço indisponível"
+		}
+	},
+	"user": {
+		"validation": {
+			"message": {
+				"name": {
+					"default": "Informe o nome!",
+					"minimumCharacters": "Nome deve ter no minímo 4 letras!"
+				},
+				"lastName": {
+					"default": "Informe o sobrenome",
+					"minimumCharacters": "Sobrenome deve ter no minímo 4 letras!"
+				},
+				"email": {
+					"default": "Informe um email válido!",
+					"alreadyRegistered": "Email já registrado!"
+				},
+				"password": {
+					"default": "Informe a senha!",
+					"minimumCharacters": "Senha deve ter no minímo 6 caracteres!"
+				},
+				"confirmPassword": {
+					"default": "Informe cofirmar senha!",
+					"minimumCharacters": "Confirmar senha deve ter no minímo 6 caracteres!",
+					"passwordsDoNotMatch": "As senhas não coincidem!"
+				}
+			}
+		}
+	}
+}

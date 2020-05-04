@@ -1,0 +1,47 @@
+{
+    "request": {
+		"message": {
+			"created": "Successfully created",
+			"updated": "Successfully updated",
+			"deleted": "Successfully deleted"
+		}
+	},
+    "boom": {
+        "message": {
+            "badRequest": "Bad request",
+            "unauthorized": "Unauthorized",
+            "forbidden": "Forbidden",
+            "notFound": "Not found",
+            "badImplementation": "Internal server error",
+            "notImplemented": "Not implemented",
+            "serverUnavailable": "Server unavailable"
+        }
+    },
+    "user": {
+        "validation": {
+            "message": {
+				"name": {
+					"default": "Enter the name!",
+					"minimumCharacters": "Name must be at least 4 letters!"
+				},
+				"lastName": {
+					"default": "Enter the last name!",
+					"minimumCharacters": "Last name must be at least 4 letters!"
+				},
+				"email": {
+					"default": "Enter the email valid!",
+					"alreadyRegistered": "Email already registered!"
+				},
+				"password": {
+					"default": "Enter the password!",
+					"minimumCharacters": "Password must be at least 6 characters!"
+				},
+				"confirmPassword": {
+					"default": "Enter the confirm password!",
+					"minimumCharacters": "Confirm password must be at least 6 characters!",
+					"passwordsDoNotMatch": "Passwords do not match!"
+				}
+			}
+        }
+    }
+}
